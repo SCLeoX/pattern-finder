@@ -150,6 +150,7 @@ elemInput.addEventListener('input', () => {
   } else if (lastValue + ',' === elemInput.value) {
     // If the user entered a single comma.
     elemInput.value += ' ';
+    elemInput.selectionStart = elemInput.value.length;
   }
   formatInput();
   updateView();
