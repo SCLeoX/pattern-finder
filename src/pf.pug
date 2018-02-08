@@ -1,0 +1,37 @@
+doctype html
+META
+  page lab.pf
+html
+  head
+    meta(name='viewport' content='width=device-width')
+    link(href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet')
+    link(rel='stylesheet' href='./pf.scss')
+  body
+    #title
+      h1 Pattern Finder
+      h2 &lt;/&gt; by SCLeo with &hearts; &middot;&nbsp;
+        a(href='https://github.com/SCLeoX/pattern-finder') Source
+    input#input(placeholder='Enter an integer sequence here')
+    #results.hide
+      #results-inner
+        #sample-result.result
+          p
+            span.repeat 2, 3, 4
+            span ,&nbsp;
+            span.predict 5, 6, 7, 8
+            span ...
+          p.pattern Diff(2, Constant(1))
+        #metrics.result
+          p
+            span.
+              Enter a integer sequence and press &lt;Enter&gt; to start the query.
+          p.
+            Pattern Finder will try to find the hidden pattern inside your
+            input.
+          p.
+            However, please note, Pattern Finder is NOT a regression tool. It
+            only looks for patterns that are 100% accurate. Pattern Finder is
+            NOT going to tell you the general trend of your data.
+    script(src='./removePolyfill.js')
+    script(src='./external/polyfill.js')
+    script(src='./entry.js')
