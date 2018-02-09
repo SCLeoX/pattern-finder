@@ -42,7 +42,6 @@ export class QueryProcess {
       }
       const t0 = new Date().getTime();
       const te = t0 + expectedTickTime;
-      let ops = 0;
       while (new Date().getTime() < te) {
         for (let i = 0; i < opsPerMeasure; i++) {
           const iteratorResult = iterator.next();
@@ -60,14 +59,13 @@ export class QueryProcess {
             }
           }
 
-          this.totalSteps += 10;
+          this.totalSteps++;
 
           if (iteratorResult.done) {
             this.stop();
             return;
           }
         }
-        ops += opsPerMeasure;
       }
 
       this.totalTicks++;
