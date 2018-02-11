@@ -13,7 +13,7 @@ export class GeometricPattern extends Pattern {
     const identifier = factorPattern.toString(false);
     let cache = GeometricPattern.cacheMap.get(identifier);
     if (cache === undefined) {
-      GeometricPattern.cacheMap.set(identifier, cache = [factorPattern.get(1)]);
+      GeometricPattern.cacheMap.set(identifier, cache = [factorPattern.get(0)]);
     }
     this.cache = cache;
   }
