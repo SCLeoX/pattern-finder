@@ -14,6 +14,8 @@ const basicStrategyPFIList = [
   'ConstantAddBi',
   'Geometric',
   'ConstantMultiplyBi',
+  'Fib',
+  'Alt',
 ];
 
 /**

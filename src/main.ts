@@ -82,11 +82,17 @@ const resetResults = () => {
   results.length = 0;
 };
 
+let autoPaused = false;
+
 elemSampleResult.removeAttribute('id');
 elemSampleResult.remove(); // Detach the template from DOM
 const addResult = (pattern: Pattern, predictions: Array<number>) => {
   if (runningProcess === null) {
     return;
+  }
+  if (runningProcess.totalMatches === 25) {
+    runningProcess.stop();
+    autoPaused = true;
   }
   const elemRoot = elemSampleResult.cloneNode(true) as HTMLDivElement;
   const elemRepeat
@@ -164,7 +170,14 @@ elemInput.addEventListener('keyup', event => {
     } else {
       // Do not ask me why. Trust the process.
       elemMetrics.innerHTML = ''
+        + '<p id="running-note">'
+          + 'Please note, the best guesses are on the top.'
+        + '</p>'
         + '<div class="scroll"><table>'
+          + '<tr>'
+            + '<th>Current Status:</th>'
+            + '<td><a id="current-status"></a></td>'
+          + '</tr>'
           + '<tr>'
             + '<th>Total matches:</th>'
             + '<td id="metrics1"></td>'
@@ -196,6 +209,18 @@ elemInput.addEventListener('keyup', event => {
         = document.getElementById('metrics5') as HTMLTableDataCellElement;
       const elemMetrics6
         = document.getElementById('metrics6') as HTMLTableDataCellElement;
+      const elemCurrentStatus
+        = document.getElementById('current-status') as HTMLLinkElement;
+      elemCurrentStatus.addEventListener('click', () => {
+        if (runningProcess !== null) {
+          if (runningProcess.running) {
+            autoPaused = false;
+            runningProcess.stop();
+          } else {
+            runningProcess.start();
+          }
+        }
+      });
       requestAnimationFrame(function animation() {
         if (runningProcess !== null) {
           elemMetrics1.innerText = String(runningProcess.totalMatches);
@@ -212,6 +237,9 @@ elemInput.addEventListener('keyup', event => {
               runningProcess.totalSteps / runningProcess.totalTicks * 100,
             ) / 100,
           );
+          elemCurrentStatus.innerText = (runningProcess.running
+            ? 'Running'
+            : ((autoPaused ? 'Auto ' : '' ) + 'Paused')) + ' (Click to switch)';
         }
         requestAnimationFrame(animation);
       });
@@ -220,7 +248,7 @@ elemInput.addEventListener('keyup', event => {
     runningProcess = new QueryProcess(
       elemInput.value,
       addResult,
-      () => console.info('FINISH'),
+      () => undefined,
     );
   }
 });

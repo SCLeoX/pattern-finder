@@ -40,6 +40,7 @@ const getDivisors = (n: number): Array<number> => {
 const constantMultiplyBiBlacklist = new Set([
   'ConstantMultiplyBi',
   'ConstantAddBi',
+  'Alt',
 ]);
 interface ILabeledIterator {
   label: number;

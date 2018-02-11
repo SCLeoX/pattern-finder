@@ -1,7 +1,9 @@
 import { PatternFactory } from './Pattern';
 import { ConstantAddBiPatternFactory } from './patterns/AddBiPattern';
+import { AltPatternFactory } from './patterns/AltPattern';
 import { ConstantPatternFactory } from './patterns/ConstantPattern';
 import { DiffPatternFactory } from './patterns/DiffPattern';
+import { FibPatternFactory } from './patterns/FibPattern';
 import { GeometricPatternFactory } from './patterns/GeometricPattern';
 import { ConstantMultiplyBiPatternFactory } from './patterns/MultiplyBiPattern';
 
@@ -26,3 +28,5 @@ register(new DiffPatternFactory());
 register(new ConstantAddBiPatternFactory());
 register(new GeometricPatternFactory());
 register(new ConstantMultiplyBiPatternFactory());
+register(new FibPatternFactory());
+register(new AltPatternFactory());

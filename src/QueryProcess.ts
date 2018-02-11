@@ -15,7 +15,10 @@ export class QueryProcess {
   public totalMatches: number = 0;
   public totalTicks: number = 0;
 
-  private running: boolean = true;
+  public running: boolean = true;
+
+  public tick: () => void;
+
   public constructor(
     userInput: string,
     onMatchCb: (pattern: Pattern, predictions: Array<number>) => void,
@@ -36,7 +39,7 @@ export class QueryProcess {
       sequence,
       QueryStrategyFactory.createBasicStrategy(),
     );
-    const tick = () => {
+    this.tick = () => {
       if (!this.running) {
         return;
       }
@@ -70,9 +73,13 @@ export class QueryProcess {
 
       this.totalTicks++;
 
-      setTimeout(tick, 1);
+      setTimeout(this.tick, 1);
     };
-    setTimeout(tick, 1);
+    this.start();
+  }
+  public start() {
+    this.running = true;
+    setTimeout(this.tick, 1);
   }
   public stop() {
     const running = this.running;

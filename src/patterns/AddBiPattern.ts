@@ -23,7 +23,7 @@ export class AddBiPattern extends Pattern {
   }
 }
 
-const noMoreConstantAddBiPattern = new Set(['ConstantAddBi']);
+const constantAddBiBlackList = new Set(['ConstantAddBi', 'Alt']);
 interface ILabeledIterator {
   label: number;
   iterator: Iterator<undefined | Pattern>;
@@ -44,7 +44,7 @@ export class ConstantAddBiPatternFactory extends PatternFactory {
         label: addBy,
         iterator: matcher.queryPattern(
           newSequence,
-          QueryStrategyFactory.createBasicStrategy(noMoreConstantAddBiPattern),
+          QueryStrategyFactory.createBasicStrategy(constantAddBiBlackList),
         )},
       );
     };
